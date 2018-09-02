@@ -19,7 +19,7 @@ locale                   : "ko-KR"
 title                    : "Learning Rust"
 title_separator          : "-"
 name                     : "Jason Kim"
-description              : "Rust 언어를 공부하면서 정리하기 위한 블로그"
+description              : "Rust 언어를 공부하면서 한글 자료를 정리하기 위한 블로그"
 url                      : "https://dialogbox.github.io"
 baseurl                  : 
 repository               : # GitHub username/repo-name e.g. "mmistakes/minimal-mistakes"
