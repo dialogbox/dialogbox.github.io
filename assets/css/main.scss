@@ -52,6 +52,11 @@ div.highlighter-rouge {
         font-size: $type-size-8;
         font-weight: lighter;
     }
+
+    li div.highlighter-rouge {
+        font-size: $type-size-6;
+        font-weight: lighter;
+    }
 }
 
 code.highlighter-rouge {
