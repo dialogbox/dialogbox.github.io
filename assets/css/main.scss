@@ -33,20 +33,25 @@ h6 {
     font-size: $type-size-5;
 }
 
-.page {
-    .page__content {
-        p,
-        li,
-        dl {
-          font-size: 0.8em;
-        }
-    }
+div.highlighter-rouge {
+    line-height: 1.25em;
 }
 
-div.highlighter-rouge {
-    font-size: $type-size-8;
-    line-height: 1.25em;
-    font-weight: lighter;
+@media only screen and (min-width: 800px) {
+    .page {
+        .page__content {
+            p,
+            li,
+            dl {
+              font-size: 0.8em;
+            }
+        }
+    }
+
+    div.highlighter-rouge {
+        font-size: $type-size-8;
+        font-weight: lighter;
+    }
 }
 
 code.highlighter-rouge {
