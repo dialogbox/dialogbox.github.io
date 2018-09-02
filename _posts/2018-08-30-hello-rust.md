@@ -1,5 +1,6 @@
 ---
 title: "Hello Rust!"
+description: "Rust언어에 대해 간단히 소개하고 시작하기 위해 필요한 설치 과정을 다룬다."
 categories: rust
 tags: [rust, quickstart, tutorial]
 ---

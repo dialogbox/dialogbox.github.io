@@ -1,5 +1,6 @@
 ---
 title: "Hello Cargo!"
+description: "이 글에서는 cargo project의 구조와 module 구조 unit test 작성 방법에 대해 간단히 알아본다."
 categories: rust
 tags: [rust, quickstart, cargo, tutorial]
 ---
