@@ -238,7 +238,7 @@ fn average_should_work() {
 `average()` 함수가 없으니 당연히 에러가 발생한다.
 
 ```console
-% cargo test average_should_work                                                                        hello-world [master] ✗
+% cargo test average_should_work
    Compiling hello-world v0.1.0 (file:///Users/dialogbox/works/rust/tut/hello-world)
 error[E0425]: cannot find function `average` in this scope
   --> src/lib.rs:16:20
@@ -286,7 +286,7 @@ help: possible candidate is found in another module, you can import it into scop
 
 에러 메시지에 힌트가 들어있다. 우리가 추가한 함수는 `tests` 모듈에 있지 않기 때문에 import를 해 줘야 한다.
 
-모듈 이름을 명시적으로 지정해서 import 할수도 있지만 워낙 자주 사용하는 구문이기 때문에 다음과 같이도 쓸 수 있다.
+모듈 이름을 명시적으로 지정해서 import 할수도 있지만 부모 모듈의 코드를 테스트 하는 경우 다음과 같이도 쓸 수 있다.
 
 ```rust
 use super::*;
