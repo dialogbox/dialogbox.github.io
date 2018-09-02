@@ -6,3 +6,53 @@
 
 @import "minimal-mistakes/skins/{{ site.minimal_mistakes_skin | default: 'default' }}"; // skin
 @import "minimal-mistakes"; // main partials
+
+// Custom
+h1 {
+    margin-top: 0;
+    font-size: $type-size-2;
+}
+
+h2 {
+    font-size: $type-size-3;
+}
+
+h3 {
+    font-size: $type-size-4;
+}
+
+h4 {
+    font-size: $type-size-5;
+}
+
+h5 {
+    font-size: $type-size-5;
+}
+
+h6 {
+    font-size: $type-size-5;
+}
+
+.page {
+    .page__content {
+        p,
+        li,
+        dl {
+          font-size: 0.8em;
+        }
+    }
+}
+
+div.highlighter-rouge {
+    font-size: $type-size-8;
+    line-height: 1.25em;
+    font-weight: lighter;
+}
+
+code.highlighter-rouge {
+    background: $lighter-gray;
+    font-size: $type-size-7;
+    font-weight: bold;
+    padding: 0.3em 0.2em 0.2em 0.2em;
+    vertical-align: 0.1em;
+}
