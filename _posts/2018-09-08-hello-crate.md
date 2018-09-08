@@ -165,7 +165,153 @@ mod tests {
 **Note:** [Docs.rs] 사이트는 자동 생성된 문서들을 찾아볼 수 있는 사이트인데, project에 추가한 crate의 문서는 `cargo doc --open` 명령으로 offline에서도 볼 수 있다. 이 명령을 사용하면 우리가 만든 crate의 문서도 확인할 수 있다.
 {: .notice}
 
-***WIP***
+먼저 새로운 project를 생성하고 `Cargo.toml`에 dependency를 추가하자.
+
+```console
+% cargo init rcat
+```
+
+```toml
+[dependencies]
+clap = "2.32.0"
+```
+
+이제 `main.rs` 파일에 다음과 같이 입력한다.
+
+```rust
+extern crate clap;
+use clap::App;
+
+fn main() {
+    App::new("rcat")
+        .version("1.0.0")
+        .about("simple cat clone")
+        .author("Jason Kim")
+        .get_matches();
+}
+```
+
+첫줄에서 앞서 설명한 것과 같이 `clap` crate을 추가해 줬다. 이제 `use clap::App;`과 같이 `clap` crate에 포함된 모듈들을 불려올 수 있다.
+
+```rust
+    App::new("rcat")
+        .version("1.0.0")
+        .about("simple cat clone")
+        .author("Jason Kim")
+        .get_matches();
+```
+
+이 부분은 `crate::App`을 사용해 CLI 프로그램을 선언한 것이다. 자세한 내용은 문서를 참조하고 일단 실행을 해 보자.
+
+```console
+% cargo build
+    Finished dev [unoptimized + debuginfo] target(s) in 0.04s
+% ./target/debug/rcat
+% ./target/debug/rcat -h
+rcat 1.0.0
+Jason Kim
+simple cat clone
+
+USAGE:
+    rcat
+
+FLAGS:
+    -h, --help       Prints help information
+    -V, --version    Prints version information
+% ./target/debug/rcat -V
+rcat 1.0.0
+```
+
+이미 위에서 선언한 정보를 바탕으로 기본적인 CLI 인터페이스가 구현되어있다.
+
+몇 가지 Argument를 추가해 보자.
+
+```rust
+extern crate clap;
+use clap::{Arg, App};
+
+fn main() {
+    let matches = App::new("rcat")
+        .version("1.0.0")
+        .about("simple cat clone")
+        .author("Jason Kim")
+        .arg(Arg::with_name("upper")
+            .short("U")
+            .long("upper")
+            .takes_value(false)
+            .help("Makes the output to upper case"))
+        .arg(Arg::with_name("INPUT")
+            .help("Sets the input file to use")
+            .required(true)
+            .index(1))
+        .get_matches();
+
+    let upper = matches.is_present("upper");
+    let input = matches.value_of("INPUT").expect("INPUT file must be specified");
+
+    println!("Value for upper: {}", upper);
+    println!("Value for INPUT: {}", input);
+}
+```
+
+이제 `--upper` 또는 `-U` flag가 추가 된 것을 볼 수 있다.
+
+```console
+% cargo run -- src/main.rs -h
+rcat 1.0.0
+Jason Kim
+simple cat clone
+
+USAGE:
+    rcat [FLAGS] <INPUT>
+
+FLAGS:
+    -h, --help       Prints help information
+    -U, --upper      Makes the output to upper case
+    -V, --version    Prints version information
+
+ARGS:
+    <INPUT>    Sets the input file to use
+```
+
+`cat` 명령어 처럼 파일을 읽어서 화면에 출력하는 코드는 다음과 같다.
+
+```rust
+extern crate clap;
+use clap::{Arg, App};
+use std::{io, fs};
+
+fn main() {
+    let matches = App::new("rcat")
+        .version("1.0.0")
+        .about("simple cat clone")
+        .author("Jason Kim")
+        .arg(Arg::with_name("upper")
+            .short("U")
+            .long("upper")
+            .takes_value(false)
+            .help("Makes the output to upper case"))
+        .arg(Arg::with_name("INPUT")
+            .help("Sets the input file to use")
+            .required(true)
+            .index(1))
+        .get_matches();
+
+    let upper = matches.is_present("upper");
+    let input = matches.value_of("INPUT").expect("INPUT file must be specified");
+    cat(input, upper).expect("Can not read file");
+}
+
+fn cat(path: &str, upper: bool) -> Result<(), io::Error> {
+    let contents = fs::read_to_string(path)?;
+
+    if upper {
+        Ok(println!("{}", contents.to_uppercase()))
+    } else {
+        Ok(println!("{}", contents))
+    }
+}
+```
 
 ## 마무리
 
@@ -173,8 +319,6 @@ mod tests {
 물론 시리즈의 서두에 이야기 한 것 처럼 Rust는 쉬운 언어가 아니기 때문에 더 깊이 들어가기 위해서는 알아야 할 것이 너무나도 많다.
 
 그러나 일단은 환경을 구축하고 남들이 만든 crate을 하나씩 가져다 써보면서 공부할 수 있다면 좀더 쉽게 접근할 수 있으리라 생각한다.
-
-다음 부터는 유용한 또는 반드시 알아야 하는 crate들을 하나씩 소개해 볼까 한다.
 
 [이전 포스팅]: {{ site.baseurl }}{% post_url 2018-09-01-hello-cargo %}
 [Hello Cargo!]: {{ site.baseurl }}{% post_url 2018-09-01-hello-cargo %}
