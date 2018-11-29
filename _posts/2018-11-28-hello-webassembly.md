@@ -51,7 +51,7 @@ curl https://rustwasm.github.io/wasm-pack/installer/init.sh -sSf | sh
 
 ```console
 cargo install cargo-generate
-```ㄴ
+```
 
 ## 예제 프로그램
 
